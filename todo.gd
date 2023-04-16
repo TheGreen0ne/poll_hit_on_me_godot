@@ -1,4 +1,6 @@
 
+# dont save images to disk, load directly
+
 # maybe a tab per disga
 # config file in usr://
 # contain some path to executable e.g.
