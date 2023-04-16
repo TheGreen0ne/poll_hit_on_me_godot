@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://ds3m6cl4ggpww"]
+
+[node name="ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="border_full_hd" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1100.0
+offset_bottom = 1940.0
+color = Color(0, 0.0117647, 0.643137, 1)
+
+[node name="mi_a2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = -150.0
+offset_right = 1080.0
+offset_bottom = 2130.0
+color = Color(1, 0.972549, 0, 1)
+
+[node name="full_hd" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+color = Color(0.113725, 0, 0.0431373, 1)
+
+[node name="windows_no_taskbar" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 590.0
+offset_bottom = 1049.0
+color = Color(0, 1, 0.0745098, 1)
+
+[node name="windows_with_taskbar" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 569.0
+offset_bottom = 1011.0
+color = Color(0.203922, 0.164706, 0.580392, 1)
+
+[node name="min_size" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 450.0
+color = Color(0.756863, 0.411765, 0, 1)
+
+[node name="btn_start" type="Button" parent="."]
+layout_mode = 1
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 59.0
+offset_bottom = 40.0
+text = "Start!"
+
+[node name="command_line" type="CodeEdit" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "main()"
+placeholder_text = "commando"
