@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://culi1sq4moxfh"]
+[gd_scene load_steps=3 format=3 uid="uid://culi1sq4moxfh"]
 
-[ext_resource type="Texture2D" uid="uid://cpviesm5hhg6n" path="res://fph_bon_enter.png" id="1_1e2be"]
-[ext_resource type="Texture2D" uid="uid://b8udec3ss2th5" path="res://fph_top.png" id="2_yqx5a"]
-[ext_resource type="Texture2D" uid="uid://dvwtmqwj3n3py" path="res://fph_grt.png" id="3_cfupi"]
 [ext_resource type="Script" path="res://downscaling_texture_rect.gd" id="3_gdm3k"]
+[ext_resource type="Script" path="res://image_loader.gd" id="4_dkh7q"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -24,8 +22,10 @@ grow_vertical = 2
 [node name="background" type="TextureRect" parent="PanelContainer"]
 self_modulate = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 2
-texture = ExtResource("1_1e2be")
 expand_mode = 1
+
+[node name="loader" type="Node" parent="PanelContainer/background"]
+script = ExtResource("4_dkh7q")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -45,10 +45,13 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_yqx5a")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("3_gdm3k")
+
+[node name="loader" type="Node" parent="ScrollContainer/VBoxContainer/VBoxContainer/TextureRect"]
+script = ExtResource("4_dkh7q")
+texture_file = "~/workspace/ui_fph/graphic/1280x720/fph_sym_1.png"
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -60,10 +63,13 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
-texture = ExtResource("3_cfupi")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("3_gdm3k")
+
+[node name="loader" type="Node" parent="ScrollContainer/VBoxContainer/VBoxContainer2/TextureRect"]
+script = ExtResource("4_dkh7q")
+texture_file = "~/workspace/ui_fph/graphic/1280x720/fph_grt.png"
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
