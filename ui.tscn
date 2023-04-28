@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://culi1sq4moxfh"]
+
+[ext_resource type="Texture2D" uid="uid://cpviesm5hhg6n" path="res://fph_bon_enter.png" id="1_1e2be"]
+[ext_resource type="Texture2D" uid="uid://b8udec3ss2th5" path="res://fph_top.png" id="2_yqx5a"]
+[ext_resource type="Texture2D" uid="uid://dvwtmqwj3n3py" path="res://fph_grt.png" id="3_cfupi"]
+[ext_resource type="Script" path="res://downscaling_texture_rect.gd" id="3_gdm3k"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="TextureRect" parent="PanelContainer"]
+self_modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 2
+texture = ExtResource("1_1e2be")
+expand_mode = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_yqx5a")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("3_gdm3k")
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+autowrap_mode = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("3_cfupi")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("3_gdm3k")
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+autowrap_mode = 3
