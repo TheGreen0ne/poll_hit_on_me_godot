@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://culi1sq4moxfh"]
 
-[ext_resource type="Script" path="res://downscaling_texture_rect.gd" id="3_gdm3k"]
+[ext_resource type="PackedScene" uid="uid://bnnsqixsym0qw" path="res://gallery_item.tscn" id="2_pke2a"]
 [ext_resource type="Script" path="res://image_loader.gd" id="4_dkh7q"]
 
 [node name="UI" type="Control"]
@@ -24,7 +24,7 @@ self_modulate = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 2
 expand_mode = 1
 
-[node name="loader" type="Node" parent="PanelContainer/background"]
+[node name="image_loader" type="Node" parent="PanelContainer/background"]
 script = ExtResource("4_dkh7q")
 texture_file = "~/workspace/godot/game_godot_mg/textures/mg_background_blur.png"
 
@@ -41,38 +41,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="gallery_item1" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_pke2a")]
 layout_mode = 2
+image_path = "~/workspace/ui_mg/graphic/1280x720/theme1/skin/skin4/mg_logo.png"
+label_text = "MALFUNCTION VOIDS ALL"
 
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+[node name="gallery_item2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_pke2a")]
 layout_mode = 2
-expand_mode = 5
-stretch_mode = 4
-script = ExtResource("3_gdm3k")
-
-[node name="loader" type="Node" parent="ScrollContainer/VBoxContainer/VBoxContainer/TextureRect"]
-script = ExtResource("4_dkh7q")
-texture_file = "~/workspace/ui_mg/graphic/1280x720/theme1/skin/skin4/mg_logo.png"
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "MALFUNCTION VOIDS ALL"
-autowrap_mode = 3
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-expand_mode = 5
-stretch_mode = 4
-script = ExtResource("3_gdm3k")
-
-[node name="loader" type="Node" parent="ScrollContainer/VBoxContainer/VBoxContainer2/TextureRect"]
-script = ExtResource("4_dkh7q")
-texture_file = "~/workspace/godot/game_godot_mg_theme1/tmp_debug/Selectionscreen_18_games.png"
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-text = "18"
-autowrap_mode = 3
+image_path = "~/workspace/godot/game_godot_mg_theme1/tmp_debug/Selectionscreen_18_games.png"
+label_text = "18"
