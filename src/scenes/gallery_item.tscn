@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnnsqixsym0qw"]
 
-[ext_resource type="Script" path="res://gallery_item.gd" id="1_c1v3c"]
-[ext_resource type="Script" path="res://downscaling_texture_rect.gd" id="1_e5sbp"]
+[ext_resource type="Script" path="res://src/scripts/gallery_item.gd" id="1_uoqhm"]
+[ext_resource type="Script" path="res://src/scripts/downscaling_texture_rect.gd" id="2_7k1n3"]
 
 [node name="gallery_item" type="VBoxContainer"]
 anchors_preset = 15
@@ -9,13 +9,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_c1v3c")
+script = ExtResource("1_uoqhm")
 
 [node name="gallery_image" type="TextureRect" parent="."]
 layout_mode = 2
 expand_mode = 5
 stretch_mode = 4
-script = ExtResource("1_e5sbp")
+script = ExtResource("2_7k1n3")
 
 [node name="label" type="Label" parent="."]
 layout_mode = 2
