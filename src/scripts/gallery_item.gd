@@ -54,9 +54,9 @@ static func load_image_texture_from_path(path: String) -> ImageTexture:
 		print("image not found")
 		return
 	var buffer := FileAccess.get_file_as_bytes(path)
-	var err = FileAccess.get_open_error()
-	if err:
-		print_debug(err)
+	if buffer.is_empty():
+		print("image is an empty file")
+		return
 #	print("file size: ", buffer.size())
 	var img := Image.new()
 	

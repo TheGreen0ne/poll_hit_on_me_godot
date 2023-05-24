@@ -17,9 +17,9 @@ func _ready() -> void:
 		print("background not found")
 		return
 	var buffer := FileAccess.get_file_as_bytes(texture_file)
-	var err = FileAccess.get_open_error()
-	if err:
-		print_debug(err)
+	if buffer.is_empty():
+		print("background is an empty file")
+		return
 #	print("file size: ", buffer.size())
 	var img := Image.new()
 	img.load_png_from_buffer(buffer)
