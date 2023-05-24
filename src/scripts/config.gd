@@ -1,3 +1,4 @@
+class_name Config
 extends Node
 
 @export var config_save_path := "user://config.json"
@@ -23,6 +24,8 @@ func load_config() -> void:
 		print_debug("config file is invalid")
 		breakpoint
 		return
+
+
 	if "poll_command" in save_data:
 		var mb_poll_command = save_data["poll_command"]
 		if mb_poll_command is Array:
@@ -30,8 +33,17 @@ func load_config() -> void:
 				if not s is String:
 					mb_poll_command = null
 					break
+				# filter quote injection
+				if "\"" in s:
+					mb_poll_command = null
+					break
+				# filter subshell injection
+				if "$(" in s:
+					mb_poll_command = null
+					break
 		else:
 			mb_poll_command = null
+
 		if mb_poll_command == null:
 			print("malformed config \"poll_command\"")
 			breakpoint

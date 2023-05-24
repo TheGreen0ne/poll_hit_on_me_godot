@@ -1,8 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://culi1sq4moxfh"]
+[gd_scene load_steps=7 format=3 uid="uid://culi1sq4moxfh"]
 
 [ext_resource type="Script" path="res://src/scripts/config.gd" id="1_vgl7t"]
 [ext_resource type="Script" path="res://src/scripts/image_loader.gd" id="2_7g2q7"]
-[ext_resource type="PackedScene" uid="uid://bnnsqixsym0qw" path="res://src/scenes/gallery_item.tscn" id="2_pke2a"]
+[ext_resource type="Script" path="res://src/scripts/gallery_loader.gd" id="2_lgsgh"]
+[ext_resource type="Texture2D" uid="uid://4evdcklmygo7" path="res://src/loading_circle.svg" id="4_07s0m"]
+
+[sub_resource type="Animation" id="Animation_ypqtu"]
+resource_name = "rotate loading circle"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/laoding_circle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_62re2"]
+_data = {
+"rotate loading circle": SubResource("Animation_ypqtu")
+}
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -14,6 +37,9 @@ grow_vertical = 2
 
 [node name="config" type="Node" parent="."]
 script = ExtResource("1_vgl7t")
+
+[node name="gallery_loader" type="Node" parent="."]
+script = ExtResource("2_lgsgh")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -40,17 +66,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="gallery" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="gallery_item1" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_pke2a")]
-layout_mode = 2
-image_path = "~/workspace/ui_mg/graphic/1280x720/theme1/skin/skin4/mg_logo.png"
-label_text = "MALFUNCTION VOIDS ALL"
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="gallery_item2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_pke2a")]
+[node name="Control" type="Control" parent="CenterContainer"]
 layout_mode = 2
-image_path = "~/workspace/godot/game_godot_mg_theme1/tmp_debug/Selectionscreen_18_games.png"
-label_text = "18"
+
+[node name="laoding_circle" type="Sprite2D" parent="CenterContainer/Control"]
+texture = ExtResource("4_07s0m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer"]
+autoplay = "rotate loading circle"
+libraries = {
+"": SubResource("AnimationLibrary_62re2")
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns1="http://sozi.baierouge.fr" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg2184" viewBox="0 0 124.35 124.35" version="1.0" inkscape:version="0.91 r13725">
+  <g id="layer1" transform="translate(-183.06 -288.7)">
+    <path id="path12353" style="opacity:1.0;color:#ffffff;fill:#ffffff" d="m245.23 288.7c-34.242 0-62.174 27.932-62.174 62.174s27.932 62.174 62.174 62.174 62.174-27.932 62.174-62.174c0-17.121-7.003-32.644-18.266-43.908l-10.248 10.248c8.605 8.605 13.936 20.484 13.936 33.66 0 26.35-21.245 47.595-47.595 47.595s-47.595-21.245-47.595-47.595 21.245-47.595 47.595-47.595c3.1894 0 6.2935 0.30662 9.3047 0.90045l2.6585-14.279c-3.8713-0.75941-7.8752-1.2006-11.963-1.2006zm16.551 2.2726-3.7733 14.064c1.4911 0.41236 2.9458 0.86545 4.3736 1.415l5.1026-13.635c-1.8577-0.71599-3.7651-1.3065-5.7028-1.8438zm10.034 3.6876-6.1745 13.164c1.3909 0.65828 2.7183 1.4017 4.0306 2.1868l7.418-12.521c-1.7092-1.0254-3.4644-1.9693-5.2741-2.83zm9.176 5.4027-8.3184 11.877c1.2296 0.86704 2.4195 1.8101 3.5589 2.7871l9.3904-11.02c-1.4958-1.2837-3.0176-2.5053-4.6309-3.6447z"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Futurist circle</dc:title>
+        <dc:date>2009-03-11T09:51:24</dc:date>
+        <dc:description/>
+        <dc:source>https://openclipart.org/detail/22144/futurist-circle-by-steren</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Steren</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>circle</rdf:li>
+            <rdf:li>circles</rdf:li>
+            <rdf:li>futurist</rdf:li>
+            <rdf:li>vector</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

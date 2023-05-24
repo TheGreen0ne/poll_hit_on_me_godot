@@ -13,7 +13,12 @@ var label_text := ""
 func _enter_tree() -> void:
 	image_path = expand_home(image_path)
 	var tex := load_image_texture_from_path(image_path)
-	$gallery_image.texture = tex
+	if tex == null:
+		print_debug('could not load texture from "{0}"'.format([image_path]))
+		$gallery_image.queue_free()
+		remove_child($gallery_image)
+	else:
+		$gallery_image.texture = tex
 	
 	$label.text = label_text
 
