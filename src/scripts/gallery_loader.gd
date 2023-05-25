@@ -19,7 +19,8 @@ func _ready() -> void:
 			true
 	)
 	if ret_code:
-		print_debug("program executed with return code {0}".format(ret_code))
+		print_debug(output[0])
+		print_debug("program executed with return code {0}".format([ret_code]))
 		breakpoint
 		return
 #	print(output)
