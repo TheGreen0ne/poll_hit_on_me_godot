@@ -48,13 +48,25 @@ func load_config() -> void:
 			breakpoint
 		else:
 			poll_command = PackedStringArray(mb_poll_command)
+	if "window_pos" in save_data:
+		var mb_window_pos = save_data["window_pos"]
+		if (mb_window_pos is Array
+				and len(mb_window_pos) == 2
+				and mb_window_pos[0] is float
+				and mb_window_pos[1] is float
+		):
+			var pos = Vector2i(mb_window_pos[0], mb_window_pos[1])
+			DisplayServer.window_set_position(pos)
+		else:
+			print_debug('config window_pos "', mb_window_pos, '" is invalid')
 	
 
 
 func _create_default_config_file() -> void:
 	print("creating default config file...")
 	var save_data := {
-		"poll_command": poll_command
+		"window_pos":[0,0],
+		"poll_command": poll_command,
 	}
 	var save_file := FileAccess.open(config_save_path, FileAccess.WRITE)
 	if save_file == null:
