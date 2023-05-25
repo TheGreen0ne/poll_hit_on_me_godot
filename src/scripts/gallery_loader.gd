@@ -3,20 +3,18 @@ extends Node
 const GALLERY_ITEM_SCENE = preload("res://src/scenes/gallery_item.tscn")
 
 @export_node_path var gallery_item_parent_path := ^"../ScrollContainer/gallery"
-@export_node_path("Config") var config_node_path := ^"../config"
 
-@onready var _config := get_node(config_node_path) as Config
 @onready var _gallery_item_parent := get_node(gallery_item_parent_path) as Node
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if _config.poll_command.is_empty():
+	if Config.poll_command.is_empty():
 		return
 	var output: Array[String] = []
 	var ret_code := OS.execute(
-			_config.poll_command[0],
-			_config.poll_command.slice(1),
+			Config.poll_command[0],
+			Config.poll_command.slice(1),
 			output,
 			true
 	)

@@ -1,4 +1,3 @@
-class_name Config
 extends Node
 
 @export var config_save_path := "user://config.json"
