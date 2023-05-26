@@ -13,7 +13,16 @@ func _ready():
 #	self.resized.connect(_on_resized)
 	update_expand()
 
+func _set(property: StringName, value) -> bool:
+	if property == "texture":
+		texture = value
+		update_expand()
+		return true
+	return false
+
 func update_expand() -> void:
+	if texture == null or not is_inside_tree():
+		return
 	var tex_width := texture.get_width()
 #	var parent_width := find_parent("ScrollContainer").get_parent_area_size().x
 	var parent_width := scroll_container.get_rect().size.x

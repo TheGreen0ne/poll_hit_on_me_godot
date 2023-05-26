@@ -11,8 +11,12 @@ var label_text := ""
 
 
 func _enter_tree() -> void:
-	image_path = expand_home(image_path)
-	var tex := load_image_texture_from_path(image_path)
+	var tex: ImageTexture
+	if image_path.begins_with("http"):
+		tex = await load_image_texture_from_url(image_path)
+	else:
+		image_path = expand_home(image_path)
+		tex = load_image_texture_from_path(image_path)
 	if tex == null:
 		print_debug('could not load texture from "{0}"'.format([image_path]))
 		$gallery_image.queue_free()
@@ -53,16 +57,8 @@ static func expand_home(path: String) -> String:
 		path = home_path.path_join(path.trim_prefix("~"))
 	return path
 
-## load a PNG file from the filesystem and create an ImageTexture from it
-static func load_image_texture_from_path(path: String) -> ImageTexture:
-	if not FileAccess.file_exists(path):
-		print("image not found")
-		return
-	var buffer := FileAccess.get_file_as_bytes(path)
-	if buffer.is_empty():
-		print("image is an empty file")
-		return
-#	print("file size: ", buffer.size())
+
+static func load_image_texture_from_bytes(buffer: PackedByteArray) -> ImageTexture:
 	var img := Image.new()
 	
 	# TODO support other than PNG
@@ -74,3 +70,25 @@ static func load_image_texture_from_path(path: String) -> ImageTexture:
 	if tex == null:
 		breakpoint
 	return tex
+
+
+## load a PNG file from the filesystem and create an ImageTexture from it
+static func load_image_texture_from_path(path: String) -> ImageTexture:
+	if not FileAccess.file_exists(path):
+		print("image not found")
+		return
+	var buffer := FileAccess.get_file_as_bytes(path)
+	if buffer.is_empty():
+		print("image is an empty file")
+		return
+#	print("file size: ", buffer.size())
+	return load_image_texture_from_bytes(buffer)
+
+
+## load a PNG file from an url and create an ImageTexture from it
+static func load_image_texture_from_url(url: String) -> ImageTexture:
+	var headers = [
+		"User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0"
+	]
+	var resp := await Requests.get_req(url, headers)
+	return load_image_texture_from_bytes(resp.body)
