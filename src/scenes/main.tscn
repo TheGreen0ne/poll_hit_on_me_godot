@@ -11,7 +11,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/laoding_circle:rotation")
+tracks/0/path = NodePath("Control/loading_circle:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -67,7 +67,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="loading_container" type="CenterContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -76,13 +76,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="CenterContainer"]
+[node name="Control" type="Control" parent="loading_container"]
 layout_mode = 2
 
-[node name="laoding_circle" type="Sprite2D" parent="CenterContainer/Control"]
+[node name="loading_circle" type="Sprite2D" parent="loading_container/Control"]
 texture = ExtResource("4_07s0m")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="loading_container"]
 autoplay = "rotate loading circle"
 libraries = {
 "": SubResource("AnimationLibrary_62re2")
