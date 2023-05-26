@@ -2,6 +2,11 @@ extends VBoxContainer
 ## a Gallery Item
 ## needs to be unter a ScrollContainer named ScrollContainer
 
+const BMP_MAGIC = "424d"
+const JPEG_MAGIC = "ffd8ff"
+const PNG_MAGIC = "89504e470d0a1a0a"
+const WEBP_MAGIC = "52494646"
+
 ## path to the image file on the user's filesystem
 @export_file("*.png")
 var image_path := ""
@@ -61,8 +66,18 @@ static func expand_home(path: String) -> String:
 static func load_image_texture_from_bytes(buffer: PackedByteArray) -> ImageTexture:
 	var img := Image.new()
 	
-	# TODO support other than PNG
-	img.load_png_from_buffer(buffer)
+	if buffer.slice(0, len(WEBP_MAGIC) / 2).hex_encode() == WEBP_MAGIC:
+		img.load_webp_from_buffer(buffer)
+	elif buffer.slice(0, len(PNG_MAGIC) / 2).hex_encode() == PNG_MAGIC:
+		img.load_png_from_buffer(buffer)
+	elif buffer.slice(0, len(JPEG_MAGIC) / 2).hex_encode() == JPEG_MAGIC:
+		img.load_jpg_from_buffer(buffer)
+	elif buffer.slice(0, len(BMP_MAGIC) / 2).hex_encode() == BMP_MAGIC:
+		img.load_bmp_from_buffer(buffer)
+	else:
+		print("unknown file type")
+		breakpoint
+		img.load_tga_from_buffer(buffer)
 	
 	
 #	print("img size: ", img.get_size())
