@@ -2,6 +2,8 @@ class_name StringUtils
 extends RefCounted
 
 
+## for every line deletes everything before the carriage return character "\r"
+## and the character itself
 static func apply_cr(s: String) -> String:
 	if not "\r" in s:
 		return s
@@ -14,6 +16,8 @@ static func apply_cr(s: String) -> String:
 	return "\n".join(lines)
 
 
+## deletes everything before the carriage return character "\r"
+## and the character itself
 static func apply_cr_single_line(line: String) -> String:
 	if not "\r" in line:
 		return line
