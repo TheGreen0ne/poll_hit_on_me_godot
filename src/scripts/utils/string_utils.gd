@@ -1,0 +1,22 @@
+class_name StringUtils
+extends RefCounted
+
+
+static func apply_cr(s: String) -> String:
+	if not "\r" in s:
+		return s
+
+	var lines := s.split("\n")
+	var i := 0
+	for line in lines:
+		lines[i] = apply_cr_single_line(line)
+		i += 1
+	return "\n".join(lines)
+
+
+static func apply_cr_single_line(line: String) -> String:
+	if not "\r" in line:
+		return line
+
+	var parts := line.rsplit("\r", true, 1)
+	return parts[-1]

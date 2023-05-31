@@ -37,6 +37,8 @@ func _ready() -> void:
 
 
 func _create_gallery(gallery_dict: Dictionary) -> void:
+	if "text" in gallery_dict:
+		gallery_dict["text"] = StringUtils.apply_cr(gallery_dict["text"])
 	if "image" in gallery_dict:
 		var gal_item := GALLERY_ITEM_SCENE.instantiate()
 		gal_item.image_path = gallery_dict["image"]
