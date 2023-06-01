@@ -3,28 +3,49 @@ extends Node
 const GALLERY_ITEM_SCENE = preload("res://src/scenes/gallery_item.tscn")
 
 @export_node_path var gallery_item_parent_path := ^"../ScrollContainer/gallery"
+@export_node_path var loading_animation_path := ^"../loading_container"
 
 @onready var _gallery_item_parent := get_node(gallery_item_parent_path) as Node
+@onready var _loading_animation := get_node(loading_animation_path) as CanvasItem
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if Config.poll_command.is_empty():
 		return
+	load_gallery()
+
+
+static func get_process_output_lines(
+		args: PackedStringArray, 
+		read_stderr: bool = false
+) -> PackedStringArray:
 	var output: Array[String] = []
 	var ret_code := OS.execute(
-			Config.poll_command[0],
-			Config.poll_command.slice(1),
+			args[0],
+			args.slice(1),
 			output,
-			true
+			read_stderr
 	)
+#	print(output)
 	if ret_code:
 		print_debug(output[0])
 		print_debug("program executed with return code {0}".format([ret_code]))
 		breakpoint
-		return
-#	print(output)
-	var lines = output[0].strip_edges().split("\n")
+		return []
+	return output[0].strip_edges().split("\n")
+
+
+func load_gallery() -> void:
+	_loading_animation.show()
+	var _loader_thread := Thread.new()
+	var fun = get_process_output_lines.bind(Config.poll_command)
+	_loader_thread.start(fun)
+	while _loader_thread.is_alive():
+		await get_tree().create_timer(0.1).timeout
+	var lines = _loader_thread.wait_to_finish()
+	_loading_animation.hide()
+
 #	print(lines)
 	for line in lines:
 		var gallery_data: Dictionary
