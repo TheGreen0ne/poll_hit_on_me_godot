@@ -103,7 +103,8 @@ static func load_image_texture_from_path(path: String) -> ImageTexture:
 ## load a PNG file from an url and create an ImageTexture from it
 static func load_image_texture_from_url(url: String) -> ImageTexture:
 	var headers = [
-		"User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0"
+		"User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0",
+		"Referer: "+ "/".join(url.split("/").slice(0, 3))
 	]
 	var resp := await Requests.get_req(url, headers)
 	return load_image_texture_from_bytes(resp.body)
