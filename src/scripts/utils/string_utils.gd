@@ -22,5 +22,7 @@ static func apply_cr_single_line(line: String) -> String:
 	if not "\r" in line:
 		return line
 
-	var parts := line.rsplit("\r", true, 1)
+	var parts := line.rsplit("\r", false, 1)
+	if parts.is_empty():
+		return ""
 	return parts[-1]
