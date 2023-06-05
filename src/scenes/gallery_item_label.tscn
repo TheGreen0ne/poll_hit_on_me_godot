@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://djxqiaimjnvjy"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ti2od"]
-font_size = 12
+[sub_resource type="Theme" id="Theme_s1ieo"]
+default_font_size = 12
 
 [node name="label" type="Label"]
-label_settings = SubResource("LabelSettings_ti2od")
+theme = SubResource("Theme_s1ieo")
 autowrap_mode = 3
