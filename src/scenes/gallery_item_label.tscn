@@ -1,8 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://djxqiaimjnvjy"]
 
-[sub_resource type="Theme" id="Theme_s1ieo"]
-default_font_size = 12
+[ext_resource type="Theme" uid="uid://dgubm16miafx5" path="res://src/res/global_theme.tres" id="1_uexai"]
 
 [node name="label" type="Label"]
-theme = SubResource("Theme_s1ieo")
+theme = ExtResource("1_uexai")
 autowrap_mode = 3
