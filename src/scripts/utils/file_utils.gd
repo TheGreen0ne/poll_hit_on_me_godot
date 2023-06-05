@@ -19,5 +19,5 @@ static func expand_home(path: String) -> String:
 					home_path = OS.get_environment("USERPROFILE")
 		if home_path == "":
 			home_path = "/".join(ProjectSettings.globalize_path("user://a").split("/").slice(0,3))
-		path = home_path.path_join(path.trim_prefix("~"))
+		return home_path.path_join(path.trim_prefix("~"))
 	return path
