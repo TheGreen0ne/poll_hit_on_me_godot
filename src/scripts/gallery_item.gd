@@ -6,6 +6,8 @@ const BMP_MAGIC = "424d"
 const JPEG_MAGIC = "ffd8ff"
 const PNG_MAGIC = "89504e470d0a1a0a"
 const WEBP_MAGIC = "52494646"
+## length of the longest file magic in bytes
+const MAX_MAGIC_LEN = len(PNG_MAGIC) / 2
 
 ## path to the image file on the user's filesystem
 @export_file("*.png")
@@ -18,9 +20,18 @@ var label_text := ""
 func _enter_tree() -> void:
 	var tex: ImageTexture
 	if image_path.begins_with("http"):
+		# Workaround for Godot #69282; calling static function from within a class generates a warning
+		# https://github.com/godotengine/godot/issues/69282
+		@warning_ignore("static_called_on_instance")
 		tex = await load_image_texture_from_url(image_path)
 	else:
+		# Workaround for Godot #69282; calling static function from within a class generates a warning
+		# https://github.com/godotengine/godot/issues/69282
+		@warning_ignore("static_called_on_instance")
 		image_path = expand_home(image_path)
+		# Workaround for Godot #69282; calling static function from within a class generates a warning
+		# https://github.com/godotengine/godot/issues/69282
+		@warning_ignore("static_called_on_instance")
 		tex = load_image_texture_from_path(image_path)
 	if tex == null:
 		print_debug('could not load texture from "{0}"'.format([image_path]))
@@ -65,14 +76,16 @@ static func expand_home(path: String) -> String:
 
 static func load_image_texture_from_bytes(buffer: PackedByteArray) -> ImageTexture:
 	var img := Image.new()
+
+	var buffer_magic := buffer.slice(0, MAX_MAGIC_LEN).hex_encode()
 	
-	if buffer.slice(0, len(WEBP_MAGIC) / 2).hex_encode() == WEBP_MAGIC:
+	if buffer_magic.begins_with(WEBP_MAGIC):
 		img.load_webp_from_buffer(buffer)
-	elif buffer.slice(0, len(PNG_MAGIC) / 2).hex_encode() == PNG_MAGIC:
+	elif buffer_magic.begins_with(PNG_MAGIC):
 		img.load_png_from_buffer(buffer)
-	elif buffer.slice(0, len(JPEG_MAGIC) / 2).hex_encode() == JPEG_MAGIC:
+	elif buffer_magic.begins_with(JPEG_MAGIC):
 		img.load_jpg_from_buffer(buffer)
-	elif buffer.slice(0, len(BMP_MAGIC) / 2).hex_encode() == BMP_MAGIC:
+	elif buffer_magic.begins_with(BMP_MAGIC):
 		img.load_bmp_from_buffer(buffer)
 	else:
 		print("unknown file type")

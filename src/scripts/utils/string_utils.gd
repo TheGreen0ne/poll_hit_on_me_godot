@@ -1,5 +1,6 @@
 class_name StringUtils
 extends RefCounted
+# maybe could extend Object, but not 100% sure
 
 
 ## for every line deletes everything before the carriage return character "\r"
