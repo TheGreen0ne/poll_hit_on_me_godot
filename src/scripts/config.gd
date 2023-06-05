@@ -2,6 +2,7 @@ extends Node
 
 @export var config_save_path := "user://config.json"
 
+var background_file := ""
 var poll_command := PackedStringArray([])
 
 func _enter_tree() -> void:
@@ -59,7 +60,14 @@ func load_config() -> void:
 			DisplayServer.window_set_position(pos)
 		else:
 			print_debug('config window_pos "', mb_window_pos, '" is invalid')
-	
+	if "background_file" in save_data:
+		var mb_bg_file = save_data["background_file"]
+		if mb_bg_file is String and FileAccess.file_exists(mb_bg_file):
+			background_file = mb_bg_file
+		else:
+			print_debug('could not find background at "{0}"'.format(
+				[mb_bg_file]
+			))
 
 
 func _create_default_config_file() -> void:
@@ -67,6 +75,7 @@ func _create_default_config_file() -> void:
 	var save_data := {
 		"window_pos":[0,0],
 		"poll_command": poll_command,
+		"background_file": background_file,
 	}
 	var save_file := FileAccess.open(config_save_path, FileAccess.WRITE)
 	if save_file == null:
