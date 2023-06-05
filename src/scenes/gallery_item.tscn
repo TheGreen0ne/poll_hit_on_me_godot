@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://src/scripts/gallery_item.gd" id="1_uoqhm"]
 [ext_resource type="Script" path="res://src/scripts/downscaling_texture_rect.gd" id="2_7k1n3"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_ti2od"]
-font_size = 12
+[ext_resource type="PackedScene" uid="uid://djxqiaimjnvjy" path="res://src/scenes/gallery_item_label.tscn" id="3_ckcht"]
 
 [node name="gallery_item" type="VBoxContainer"]
 anchors_preset = 15
@@ -20,7 +18,5 @@ expand_mode = 5
 stretch_mode = 4
 script = ExtResource("2_7k1n3")
 
-[node name="label" type="Label" parent="."]
+[node name="label" parent="." instance=ExtResource("3_ckcht")]
 layout_mode = 2
-label_settings = SubResource("LabelSettings_ti2od")
-autowrap_mode = 3
