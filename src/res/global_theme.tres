@@ -1,4 +1,7 @@
-[gd_resource type="Theme" format=3 uid="uid://dgubm16miafx5"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dgubm16miafx5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_53kjj"]
 
 [resource]
 default_font_size = 12
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_53kjj")

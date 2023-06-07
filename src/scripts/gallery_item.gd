@@ -9,6 +9,7 @@ var image_path := ""
 ## text to be shown in the label
 @export
 var label_text := ""
+var data_dict: Dictionary = {}
 
 
 func _enter_tree() -> void:
