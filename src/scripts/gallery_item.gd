@@ -1,6 +1,6 @@
 extends VBoxContainer
 ## a Gallery Item
-## needs to be unter a ScrollContainer named ScrollContainer
+## needs to be unter a ScrollContainer
 
 
 ## path to the image file on the user's filesystem
