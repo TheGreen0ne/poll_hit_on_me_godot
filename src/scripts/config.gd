@@ -4,6 +4,7 @@ extends Node
 
 var background_file := ""
 var poll_command := PackedStringArray([])
+var details_command := PackedStringArray([])
 
 func _enter_tree() -> void:
 	load_config()
@@ -25,30 +26,22 @@ func load_config() -> void:
 		breakpoint
 		return
 
-
 	if "poll_command" in save_data:
-		var mb_poll_command = save_data["poll_command"]
-		if mb_poll_command is Array:
-			for s in mb_poll_command:
-				if not s is String:
-					mb_poll_command = null
-					break
-				# filter quote injection
-				if "\"" in s:
-					mb_poll_command = null
-					break
-				# filter subshell injection
-				if "$(" in s:
-					mb_poll_command = null
-					break
-		else:
-			mb_poll_command = null
+		var mb_poll_command := _sanitize_command(save_data["poll_command"])
 
-		if mb_poll_command == null:
+		if mb_poll_command.is_empty():
 			print("malformed config \"poll_command\"")
 			breakpoint
 		else:
 			poll_command = PackedStringArray(mb_poll_command)
+	if "details_command" in save_data:
+		var mb_details_command := _sanitize_command(save_data["details_command"])
+
+		if mb_details_command.is_empty():
+			print("malformed config \"details_command\"")
+			breakpoint
+		else:
+			details_command = PackedStringArray(mb_details_command)
 	if "window_pos" in save_data:
 		var mb_window_pos = save_data["window_pos"]
 		if (mb_window_pos is Array
@@ -75,6 +68,7 @@ func _create_default_config_file() -> void:
 	var save_data := {
 		"window_pos":[0,0],
 		"poll_command": poll_command,
+		"details_command": details_command,
 		"background_file": background_file,
 	}
 	var save_file := FileAccess.open(config_save_path, FileAccess.WRITE)
@@ -102,3 +96,22 @@ func _open_config_file() -> FileAccess:
 		else:
 			print_debug(err)
 	return save_file
+
+
+func _sanitize_command(command) -> Array:
+	if command is Array:
+		for s in command:
+			if not s is String:
+				command = []
+				break
+			# filter quote injection
+			if '"' in s:
+				command = []
+				break
+			# filter subshell injection
+			if "$" in s:
+				command = []
+				break
+	else:
+		command = []
+	return command
