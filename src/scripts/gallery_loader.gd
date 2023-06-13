@@ -37,8 +37,8 @@ func create_gallery_item_details(gal_item: GalleryItem) -> void:
 
 	var vbox := VBoxContainer.new()
 	var title := (
-			gal_item.data_dict["title"] as String
-			if "title" in gal_item.data_dict
+			gal_item.data_dict["name"] as String
+			if "name" in gal_item.data_dict
 			else "?"
 	)
 	vbox.name = title
