@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://culi1sq4moxfh"]
+[gd_scene load_steps=8 format=3 uid="uid://culi1sq4moxfh"]
 
 [ext_resource type="Script" path="res://src/scripts/background_loader.gd" id="2_4jmcx"]
 [ext_resource type="Script" path="res://src/scripts/gallery_loader.gd" id="2_lgsgh"]
 [ext_resource type="Theme" uid="uid://dgubm16miafx5" path="res://src/res/global_theme.tres" id="3_edu3m"]
+[ext_resource type="PackedScene" uid="uid://j58d21ce1puc" path="res://src/scenes/gallery_tab.tscn" id="4_6ggg7"]
 [ext_resource type="Texture2D" uid="uid://4evdcklmygo7" path="res://src/loading_circle.svg" id="4_07s0m"]
 
 [sub_resource type="Animation" id="Animation_ypqtu"]
@@ -37,7 +38,6 @@ grow_vertical = 2
 
 [node name="gallery_loader" type="Node" parent="."]
 script = ExtResource("2_lgsgh")
-gallery_item_parent_path = NodePath("../content_scroll/TabContainer/gallery")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -55,26 +55,23 @@ expand_mode = 1
 [node name="bg_loader" type="Node" parent="PanelContainer/background"]
 script = ExtResource("2_4jmcx")
 
-[node name="content_scroll" type="ScrollContainer" parent="."]
+[node name="content_tab" type="TabContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TabContainer" type="TabContainer" parent="content_scroll"]
-layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("3_edu3m")
 
-[node name="gallery" type="VBoxContainer" parent="content_scroll/TabContainer"]
+[node name="gallery" parent="content_tab" instance=ExtResource("4_6ggg7")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
 
 [node name="loading_container" type="CenterContainer" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 15

@@ -2,10 +2,11 @@ extends Node
 
 const GALLERY_ITEM_SCN = preload("res://src/scenes/gallery_item.tscn")
 const GALLERY_ITEM_LBL_SCN = preload("res://src/scenes/gallery_item_label.tscn")
+const GALLERY_TAB_SCN = preload("res://src/scenes/gallery_tab.tscn")
 const GalleryItem = preload("res://src/scripts/gallery_item.gd")
 
-@export_node_path var gallery_item_parent_path := ^"../ScrollContainer/gallery"
-@export_node_path var loading_animation_path := ^"../loading_container"
+@export_node_path var gallery_item_parent_path := ^"%content_tab/gallery/%gallery_items"
+@export_node_path var loading_animation_path := ^"%loading_container"
 
 @onready var _gallery_item_parent := get_node(gallery_item_parent_path) as Container
 @onready var _loading_animation := get_node(loading_animation_path) as CanvasItem
@@ -19,7 +20,7 @@ func _ready() -> void:
 
 
 func create_gallery_item_details(gal_item: GalleryItem) -> void:
-	var tab_container: TabContainer = _gallery_item_parent.get_parent()
+	var tab_container: TabContainer = %content_tab
 	var tab_bar := tab_container.get_child(0, true) as TabBar
 	if tab_bar == null:
 		print_debug("something went wrong")
@@ -35,17 +36,19 @@ func create_gallery_item_details(gal_item: GalleryItem) -> void:
 		# when scroll buttons are showed
 		tab_bar.max_tab_width = 148
 
-	var vbox := VBoxContainer.new()
+	var tab := GALLERY_TAB_SCN.instantiate()
 	var title := (
 			gal_item.data_dict["name"] as String
 			if "name" in gal_item.data_dict
 			else "?"
 	)
-	vbox.name = title
+	tab.name = title
 	var tab_idx := tab_container.get_tab_count()
-	tab_container.add_child(vbox, true)
+	tab_container.add_child(tab, true)
 	tab_bar.set_tab_title(tab_idx, title)
 	tab_container.current_tab = tab_idx
+	
+	var items := tab.get_node("%gallery_items") as Container
 
 	var command := Config.details_command.duplicate()
 	for i in len(command):
@@ -59,10 +62,10 @@ func create_gallery_item_details(gal_item: GalleryItem) -> void:
 
 			var l := Label.new()
 			l.text = "error loading details"
-			vbox.add_child(l)
+			items.add_child(l)
 			return
 	
-	load_gallery_tab(command, vbox)
+	load_gallery_tab(command, items)
 
 
 static func get_process_output_lines(
