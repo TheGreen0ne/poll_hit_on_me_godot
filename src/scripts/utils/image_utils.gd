@@ -58,7 +58,7 @@ static func load_image_texture_from_url(url: String) -> ImageTexture:
 		"User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0",
 		"Referer: "+ "/".join(url.split("/").slice(0, 3))
 	]
-	var resp := await Requests.get_req(url, headers)
+	var resp := await Requests.get_req(url, headers, 5, RateLimiter.get_limiter(2.0))
 	if resp.err:
 		return ImageTexture.new()
 	return load_image_texture_from_bytes(resp.body)

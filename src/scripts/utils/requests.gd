@@ -5,8 +5,11 @@ extends RefCounted
 static func get_req(
 		url: String,
 		custom_headers: PackedStringArray = [],
-		retry_on_503 := 5
+		retry_on_503 := 5,
+		rate_limiter: Object = null
 ) -> HTTPResponse:
+	if rate_limiter != null and rate_limiter.has_method("wait"):
+		await rate_limiter.wait()
 	var request := HTTPRequest.new()
 	(Engine.get_main_loop() as SceneTree).root.add_child(request)
 	var resp: HTTPResponse
