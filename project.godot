@@ -17,7 +17,7 @@ config/icon="res://src/icon.svg"
 
 [autoload]
 
-Config="*res://src/scripts/config.gd"
+Config="*res://src/scripts/utils/config.gd"
 
 [display]
 
