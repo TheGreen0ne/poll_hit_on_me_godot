@@ -8,7 +8,7 @@ static func get_req(
 		retry_on_503 := 5
 ) -> HTTPResponse:
 	var request := HTTPRequest.new()
-	Config.add_child(request)
+	(Engine.get_main_loop() as SceneTree).root.add_child(request)
 	var resp: HTTPResponse
 	var retry := retry_on_503 + 1
 	if retry < 1:
