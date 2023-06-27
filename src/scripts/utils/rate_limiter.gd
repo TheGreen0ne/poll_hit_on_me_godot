@@ -11,12 +11,13 @@ var _start_time := 0
 
 static func get_limiter(rate: float) -> RateLimiter:
 	var period_usec := int(1_000_000.0 / rate)
-	var limiter := Config.get_node_or_null(LIMITERS_PATH_FMT.format([period_usec])) as RateLimiter
+	var root := (Engine.get_main_loop() as SceneTree).root
+	var limiter := root.get_node_or_null(LIMITERS_PATH_FMT.format([period_usec])) as RateLimiter
 	if limiter == null:
 		limiter = RateLimiter.new()
 		limiter._period_usec = period_usec
 		limiter.name = LIMITERS_NAME_FMT.format([period_usec])
-		Config.get_parent().add_child(limiter)
+		root.add_child(limiter)
 	return limiter
 
 
