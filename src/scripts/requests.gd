@@ -31,7 +31,8 @@ class HTTPResponse:
 		ret.headers = signal_request_completed[2]
 		ret.body = signal_request_completed[3]
 		if ret.err or ret.code != 200:
-			breakpoint
+#			breakpoint
+			ret.err = -1
 		return ret
 
 	func json():

@@ -59,4 +59,6 @@ static func load_image_texture_from_url(url: String) -> ImageTexture:
 		"Referer: "+ "/".join(url.split("/").slice(0, 3))
 	]
 	var resp := await Requests.get_req(url, headers)
+	if resp.err:
+		return ImageTexture.new()
 	return load_image_texture_from_bytes(resp.body)
