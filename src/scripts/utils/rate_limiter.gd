@@ -4,9 +4,8 @@ extends Node
 const LIMITERS_NAME_FMT = "rate_limiter_{0}"
 const LIMITERS_PATH_FMT = "/root/" + LIMITERS_NAME_FMT
 
-var _period_usec := 500_000
-var _queue_size := 0
-var _start_time := 0 
+var _queue: Array[Waitee] = []
+var _timer: Timer 
 
 
 static func get_limiter(rate: float) -> RateLimiter:
@@ -15,30 +14,48 @@ static func get_limiter(rate: float) -> RateLimiter:
 	var limiter := root.get_node_or_null(LIMITERS_PATH_FMT.format([period_usec])) as RateLimiter
 	if limiter == null:
 		limiter = RateLimiter.new()
-		limiter._period_usec = period_usec
 		limiter.name = LIMITERS_NAME_FMT.format([period_usec])
 		root.add_child(limiter)
+		var timer := Timer.new()
+		timer.name = "timer"
+		limiter.add_child(timer)
+		limiter._timer = timer
+		timer.wait_time = 1.0 / rate
 	return limiter
 
 
-func wait() -> void:
-	var cur_time := Time.get_ticks_usec()
-	_reset_if_idle(cur_time)
-	if _start_time == 0:
-		_start_time = Time.get_ticks_usec()
-		_queue_size = 1
+func wait(bindee: Node) -> Signal:
+	var waitee := Waitee.new().bind_node(bindee)
+	_queue.push_back(waitee)
+
+	_start_dequeueing()
+
+	return waitee.finished
+
+
+func _start_dequeueing() -> void:
+	if not _timer.is_stopped():
 		return
+	_timer.start()
+	# return the signal so it can be connected before it is emitted
+	await get_tree().process_frame
+	while len(_queue) > 0:
+		var waitee := _queue.pop_front() as Waitee
+		if not waitee.is_valid():
+			continue
+		waitee.finished.emit()
+		await _timer.timeout
+	_timer.stop()
 
-	var sleep_time := (_get_next_time() - cur_time) / 1_000_000.0
-	_queue_size += 1
-	await get_tree().create_timer(sleep_time).timeout
 
-
-func _get_next_time() -> int:
-	return _queue_size * _period_usec + _start_time
-
-
-func _reset_if_idle(cur_time: int) -> void:
-	if _get_next_time() <= cur_time:
-		_start_time = 0
-		_queue_size = 0
+class Waitee extends RefCounted:
+	signal finished
+	var bound_node: Node
+	
+	func bind_node(n: Node) -> Waitee:
+		bound_node = n
+		return self
+	
+	func is_valid() -> bool:
+		return (is_instance_valid(bound_node) 
+				and not bound_node.is_queued_for_deletion())
