@@ -50,7 +50,7 @@ func load_config() -> void:
 				and mb_window_pos[1] is float
 		):
 			var pos = Vector2i(mb_window_pos[0], mb_window_pos[1])
-			DisplayServer.window_set_position(pos)
+			_set_window_pos_when_ready(pos)
 		else:
 			print_debug('config window_pos "', mb_window_pos, '" is invalid')
 	if "background_file" in save_data:
@@ -115,3 +115,10 @@ func _sanitize_command(command) -> Array:
 	else:
 		command = []
 	return command
+
+
+func _set_window_pos_when_ready(pos: Vector2i) -> void:
+	await ready
+	# tests worked only after another frame after ready
+	await get_tree().process_frame
+	DisplayServer.window_set_position(pos)
