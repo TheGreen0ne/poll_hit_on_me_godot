@@ -87,7 +87,7 @@ layout_mode = 2
 texture = ExtResource("4_07s0m")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="loading_container"]
-autoplay = "rotate loading circle"
 libraries = {
 "": SubResource("AnimationLibrary_62re2")
 }
+autoplay = "rotate loading circle"
