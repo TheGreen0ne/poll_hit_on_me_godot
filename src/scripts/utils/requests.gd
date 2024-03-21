@@ -6,10 +6,13 @@ static func get_req(
 		url: String,
 		custom_headers: PackedStringArray = [],
 		retry_on_503 := 5,
-		rate_limiter: Object = null
+		rate_limiter: Object = null,
+		bound_node: Node = null
 ) -> HTTPResponse:
 	if rate_limiter != null and rate_limiter.has_method("wait"):
-		await rate_limiter.wait(Config)
+		if bound_node == null:
+			bound_node = Config
+		await rate_limiter.wait(bound_node)
 	var request := HTTPRequest.new()
 	(Engine.get_main_loop() as SceneTree).root.add_child(request)
 	var resp: HTTPResponse

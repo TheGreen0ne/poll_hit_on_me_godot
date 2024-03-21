@@ -53,12 +53,14 @@ static func load_image_texture_from_path(path: String) -> ImageTexture:
 
 
 ## load a Image file from an url and create an ImageTexture from it
-static func load_image_texture_from_url(url: String) -> ImageTexture:
+## if the bound_node is not null and at some time turns invalid or freed, 
+## the loading of this image is aborted
+static func load_image_texture_from_url(url: String, bound_node: Node = null) -> ImageTexture:
 	var headers = [
 		"User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0",
 		"Referer: "+ "/".join(url.split("/").slice(0, 3))
 	]
-	var resp := await Requests.get_req(url, headers, 5, RateLimiter.get_limiter(2.0))
+	var resp := await Requests.get_req(url, headers, 5, RateLimiter.get_limiter(2.0), bound_node)
 	if resp.err:
 		return ImageTexture.new()
 	return load_image_texture_from_bytes(resp.body)

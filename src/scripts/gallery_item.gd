@@ -18,7 +18,7 @@ func _enter_tree() -> void:
 		# Workaround for Godot #69282; calling static function from within a class generates a warning
 		# https://github.com/godotengine/godot/issues/69282
 		@warning_ignore("static_called_on_instance")
-		tex = await ImageUtils.load_image_texture_from_url(image_path)
+		tex = await ImageUtils.load_image_texture_from_url(image_path, self)
 	else:
 		# Workaround for Godot #69282; calling static function from within a class generates a warning
 		# https://github.com/godotengine/godot/issues/69282
