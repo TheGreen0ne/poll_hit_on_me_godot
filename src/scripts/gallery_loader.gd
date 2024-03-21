@@ -9,7 +9,7 @@ const GalleryItem = preload("res://src/scripts/gallery_item.gd")
 @export_node_path var loading_animation_path := ^"%loading_container"
 
 @onready var _gallery_item_parent := get_node(gallery_item_parent_path) as Container
-@onready var _loading_animation := get_node(loading_animation_path) as CanvasItem
+@onready var _loading_animation := get_node(loading_animation_path) as Control
 
 
 # Called when the node enters the scene tree for the first time.
@@ -91,16 +91,32 @@ func load_gallery() -> void:
 
 
 func load_gallery_tab(command: PackedStringArray, tab: Container) -> void:
-	_loading_animation.show()
-	_loading_animation.process_mode = Node.PROCESS_MODE_INHERIT
+	#region loading animation
+	var loading_anim_parent := Node2D.new()
+	tab.add_child(loading_anim_parent)
+	var tab_loading_animation = _loading_animation.duplicate() as Control
+	loading_anim_parent.add_child(tab_loading_animation)
+	tab_loading_animation.show()
+	tab_loading_animation.process_mode = Node.PROCESS_MODE_INHERIT
+
+	#region animation size
+	tab_loading_animation.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	var first_tab := %content_tab.get_child(0) as Control
+	if first_tab != null and first_tab.size > Vector2.ONE:
+		tab_loading_animation.size = first_tab.size
+	else:
+		tab_loading_animation.size = %content_tab.size
+	#endregion
+	#endregion
+
 	var _loader_thread := Thread.new()
 	var fun = get_process_output_lines.bind(command, true)
 	_loader_thread.start(fun)
 	while _loader_thread.is_alive():
 		await get_tree().create_timer(0.1).timeout
 	var lines = _loader_thread.wait_to_finish()
-	_loading_animation.hide()
-	_loading_animation.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	loading_anim_parent.queue_free()
 
 #	print(lines)
 	for line in lines:
