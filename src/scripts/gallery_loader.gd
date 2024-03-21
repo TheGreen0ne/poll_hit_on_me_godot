@@ -92,6 +92,7 @@ func load_gallery() -> void:
 
 func load_gallery_tab(command: PackedStringArray, tab: Container) -> void:
 	_loading_animation.show()
+	_loading_animation.process_mode = Node.PROCESS_MODE_INHERIT
 	var _loader_thread := Thread.new()
 	var fun = get_process_output_lines.bind(command, true)
 	_loader_thread.start(fun)
@@ -99,6 +100,7 @@ func load_gallery_tab(command: PackedStringArray, tab: Container) -> void:
 		await get_tree().create_timer(0.1).timeout
 	var lines = _loader_thread.wait_to_finish()
 	_loading_animation.hide()
+	_loading_animation.process_mode = Node.PROCESS_MODE_DISABLED
 
 #	print(lines)
 	for line in lines:
